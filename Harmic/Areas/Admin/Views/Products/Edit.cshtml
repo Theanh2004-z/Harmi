@@ -46,11 +46,30 @@
                                     </select>
                                     <span asp-validation-for="CategoryProductId" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="Image" class="control-label">Ảnh</label>
-                                    <input asp-for="Image" class="form-control" />
-                                    <span asp-validation-for="Image" class="text-danger"></span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-success" onclick="openDialog()">Choose a picture</button>
+                                    </div>
+
+                                    <!-- input hiển thị đường dẫn ảnh -->
+                                    <input type="text"
+                                           class="form-control"
+                                           id="file_input"
+                                           asp-for="Image"
+                                           aria-describedby="button-addon2">
                                 </div>
+                                <div class="form-group">
+                                    <label asp-for="Description" class="control-label">Mô tả</label>
+                                    <textarea asp-for="Description" class="form-control"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Detail" class="control-label">Chi tiết</label>
+                                    <textarea asp-for="Detail" class="form-control"></textarea>
+                                    <span asp-validation-for="Detail" class="text-danger"></span>
+                                </div>
+
                                 <div class="form-group">
                                     <label asp-for="Price" class="control-label">Giá</label>
                                     <input asp-for="Price" class="form-control" />
@@ -100,3 +119,13 @@
         </div>
     </section>
 </div>
+@{
+    var summerNote = new Harmic.Areas.Admin.Models.SummerNote("#Detail");
+}
+<partial name="_SummerNote" model="summerNote" />
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

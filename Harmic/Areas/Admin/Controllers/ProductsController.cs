@@ -37,6 +37,7 @@ namespace Harmic.Areas.Admin.Controllers
             var tbProduct = await _context.TbProducts
                 .Include(t => t.CategoryProduct)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
+
             if (tbProduct == null)
             {
                 return NotFound();
@@ -49,17 +50,14 @@ namespace Harmic.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["CategoryProductId"] = new SelectList(
-    _context.TbProductCategories,
-    "CategoryProductId",
-    "Title"
-);
-
+                _context.TbProductCategories,
+                "CategoryProductId",
+                "Title"
+            );
             return View();
         }
 
         // POST: Admin/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Title,Alias,CategoryProductId,Description,Detail,Image,Price,PriceSale,Quantity,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,IsNew,IsBestSeller,UnitInStock,IsActive,Star")] TbProduct tbProduct)
@@ -72,13 +70,13 @@ namespace Harmic.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryProductId"] = new SelectList(
-     _context.TbProductCategories,
-     "CategoryProductId",
-     "CategoryProductId",
-     tbProduct.CategoryProductId
- );
 
+            ViewData["CategoryProductId"] = new SelectList(
+                _context.TbProductCategories,
+                "CategoryProductId",
+                "Title",
+                tbProduct.CategoryProductId
+            );
             return View(tbProduct);
         }
 
@@ -95,13 +93,18 @@ namespace Harmic.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "CategoryProductId", tbProduct.CategoryProductId);
+
+            ViewData["CategoryProductId"] = new SelectList(
+                _context.TbProductCategories,
+                "CategoryProductId",
+                "Title",
+                tbProduct.CategoryProductId
+            );
+
             return View(tbProduct);
         }
 
         // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,Title,Alias,CategoryProductId,Description,Detail,Image,Price,PriceSale,Quantity,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,IsNew,IsBestSeller,UnitInStock,IsActive,Star")] TbProduct tbProduct)
@@ -115,6 +118,7 @@ namespace Harmic.Areas.Admin.Controllers
             {
                 try
                 {
+                    tbProduct.Alias = Harmic.Utilities.Function.TitleSlugGenerationAlias(tbProduct.Title);
                     _context.Update(tbProduct);
                     await _context.SaveChangesAsync();
                 }
@@ -131,7 +135,13 @@ namespace Harmic.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "CategoryProductId", tbProduct.CategoryProductId);
+
+            ViewData["CategoryProductId"] = new SelectList(
+                _context.TbProductCategories,
+                "CategoryProductId",
+                "Title",
+                tbProduct.CategoryProductId
+            );
             return View(tbProduct);
         }
 
@@ -146,6 +156,7 @@ namespace Harmic.Areas.Admin.Controllers
             var tbProduct = await _context.TbProducts
                 .Include(t => t.CategoryProduct)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
+
             if (tbProduct == null)
             {
                 return NotFound();
@@ -163,9 +174,9 @@ namespace Harmic.Areas.Admin.Controllers
             if (tbProduct != null)
             {
                 _context.TbProducts.Remove(tbProduct);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

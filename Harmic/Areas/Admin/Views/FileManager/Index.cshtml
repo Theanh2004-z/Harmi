@@ -5,7 +5,8 @@
 <div id="elfinder"></div>
 
 @section Scripts {
-    <link rel="stylesheet" href="~/admin/lib/snote/jquery.min.js" />
+    <script src="~/admin/lib/snote/jquery.min.js"></script>
+
     <link rel="stylesheet" href="~/admin/lib/snote/bootstrap.bundle.min.js" />
     <link rel="stylesheet" href="~/admin/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/admin/lib/snote/summernote-bs4.min.js" />
@@ -14,21 +15,40 @@
     <link rel="stylesheet" href="~/admin/lib/jqueryui/themes/themes/base/theme.css" />
     <link rel="stylesheet" href="~/admin/lib/jqueryui/themes/jquery-ui.css" />
     <link rel="stylesheet" href="~/admin/lib/elfinder/css/elfinder.full.css" />
-    @* <link rel="stylesheet" href="~/admin/lib/elfinder/css/theme.min.css" /> *@
 
     <link rel="stylesheet" href="~/admin/elfinder-material-theme/Material/css/theme-light.min.css" />
 
-    @* <script src="~/admin/lib/jquery/dist/jquery.min.js"></script> *@
     <script src="~/admin/lib/jqueryui/jquery-ui.min.js"></script>
     <script src="~/admin/lib/elfinder/js/elfinder.min.js"></script>
 
     <script type="text/javascript">
-        // Documentation for client options:
-        // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
+
+        function openDialog() {
+            $('<div/>').dialogelfinder({
+                url: '/Admin/el-finder-file-system/connector',
+                baseUrl: '/Admin/lib/elfinder/',
+                lang: 'vi',
+                width: '80%',
+                height: '500',
+                destroyOnClose: true,
+
+                // 🔥 ĐOẠN SỬA QUAN TRỌNG
+                getFileCallback: function (file) {
+
+                    // Loại bỏ domain và dấu "/" đầu
+                    let path = file.url
+                        .replace(location.origin, "")
+                        .replace(/^\//, "");
+
+                    // Gán vào input ảnh
+                    $('#file_input').val(path);
+                }
+            });
+        }
+
         $(document).ready(function () {
             var myCommands = elFinder.prototype._options.commands;
 
-            // Not yet implemented commands in elFinder.NetCore
             var disabled = ['callback', 'chmod', 'editor', 'netmount', 'ping', 'search', 'zipdl', 'help'];
             elFinder.prototype.i18.en.messages.TextArea = "Edit";
 
@@ -58,11 +78,10 @@
                         ['selectall', 'selectnone', 'selectinvert'],
                         ['view', 'sort']
                     ]
-                },
-                //onlyMimes: ["image", "text/plain"] // Get files of requested mime types only
-                lang: 'vi',
+                }
             };
             $('#elfinder').elfinder(options).elfinder('instance');
         });
+
     </script>
 }

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Harmic.Models;
 
 public partial class TbAccount
 {
+    [NotMapped]
+    public string ConfirmPassword { get; set; }
+
     public int AccountId { get; set; }
 
     public string? Username { get; set; }

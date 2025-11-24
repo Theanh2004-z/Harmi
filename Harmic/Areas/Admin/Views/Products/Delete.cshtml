@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Xoá menu</h1>
+                    <h1>Xoá sản phẩm</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">General Form</li>
+                        <li class="breadcrumb-item active">Xóa sản phẩm</li>
                     </ol>
                 </div>
             </div>
@@ -27,65 +27,73 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Xoá menu</h3>
+                        <div class="card-header bg-danger">
+                            <h3 class="card-title">Xác nhận xóa sản phẩm</h3>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Tiêu đề:</label>
-                                @Html.DisplayFor(model => model.Title)
+                                <p>@Model?.Title ?? "Không có dữ liệu"</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Danh mục:</label>
-                                @Html.DisplayFor(model => model.CategoryProduct.Title)
+                                <p>@(Model?.CategoryProduct?.Title ?? "Chưa có danh mục")</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Ảnh:</label><br />
-                                <img src="@Url.Content(Model.Image.Replace("\\", "/"))" width="100" />
+                                @if (!string.IsNullOrEmpty(Model?.Image))
+                                {
+                                    <img src="@Url.Content(Model.Image.Replace("\\", "/"))" width="100" />
+                                }
+                                else
+                                {
+                                    <span>Không có ảnh</span>
+                                }
                             </div>
 
                             <div class="form-group">
                                 <label>Giá:</label>
-                                @Html.DisplayFor(model => model.Price)
+                                <p>@Model?.Price</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Giá giảm:</label>
-                                @Html.DisplayFor(model => model.PriceSale)
+                                <p>@Model?.PriceSale</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Số lượng:</label>
-                                @Html.DisplayFor(model => model.Quantity)
+                                <p>@Model?.Quantity</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Sản phẩm mới:</label>
-                                @Html.DisplayFor(model => model.IsNew)
+                                <p>@Model?.IsNew</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Bán chạy:</label>
-                                @Html.DisplayFor(model => model.IsBestSeller)
+                                <p>@Model?.IsBestSeller</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Số sao:</label>
-                                @Html.DisplayFor(model => model.Star)
+                                <p>@Model?.Star</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Hiển thị:</label>
-                                @Html.DisplayFor(model => model.IsActive)
+                                <p>@Model?.IsActive</p>
                             </div>
-
                         </div>
+
                         <div class="card-footer">
                             <form asp-action="Delete">
-                                <input type="hidden" asp-for="ProductId" /> <input type="submit" value="Xoá" class="btn btn-danger" />
-                                <a asp-action="Index" class="btn btn-primary">Quay lại</a>
+                                <input type="hidden" asp-for="ProductId" />
+                                <input type="submit" value="Xoá" class="btn btn-danger" />
+                                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
                             </form>
                         </div>
                     </div>

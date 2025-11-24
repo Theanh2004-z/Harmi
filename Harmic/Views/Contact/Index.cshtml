@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-wrapper">
+
+    <!-- Begin Main Header Area -->
+    <!-- Bỏ phần header nếu nó đã có trong _Layout -->
+    <!-- Nếu không có header trong layout thì giữ lại -->
+    <!-- Begin Main Content Area -->
+    <main class="main-content">
+        <div class="breadcrumb-area breadcrumb-height" data-bg-image="assets/images/breadcrumb/bg/1-1-1920x373.jpg">
+            ...
+        </div>
+
+        <div class="contact-with-map">
+            <div class="contact-map">
+                <iframe class="contact-map-size"
+                        src="https://www.google.com/maps/embed?..."></iframe>
+            </div>
+
+            <div class="contact-form-area section-space-bottom-100">
+                <div class="container">
+                    <div class="contact-form-wrap">
+                        <form asp-action="SendMessage" method="post" class="contact-form">
+                            <h4 class="contact-form-title pb-2 mb-7">Send Us a Message</h4>
+                            <div class="form-field">
+                                <input type="text" id="c_name" placeholder="Name*" class="input-field">
+                            </div>
+
+                            <div class="form-field mt-3">
+                                <input type="text" id="c_phone" placeholder="Phone*" class="input-field">
+                            </div>
+
+                            <div class="form-field mt-3">
+                                <input type="text" id="c_email" placeholder="Email*" class="input-field">
+                            </div>
+
+                            <div class="form-field mt-3">
+                                <textarea id="c_message" placeholder="Message" class="textarea-field"></textarea>
+                            </div>
+
+                            <div class="button-wrap mt-8">
+                                <button id ="c_submit" class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0">Post Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Main Content Area End Here -->
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#c_submit").click(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/Contact/SendMessage",
+                    type: "POST",
+                    data: {
+                        name: $("#c_name").val(),
+                        phone: $("#c_phone").val(),
+                        email: $("#c_email").val(),
+                        message: $("#c_message").val()
+                    },
+                    success: function (result) {
+                        if (result.status) {
+                            toastr.success("🎉 Gửi liên hệ thành công!", "Thành công");
+                            $("#c_name, #c_phone, #c_email, #c_message").val("");
+                        } else {
+                            toastr.error("❌ Gửi không thành công. Vui lòng thử lại.", "Lỗi");
+                        }
+                    },
+                    error: function () {
+                        toastr.error("⚠️ Lỗi máy chủ. Hãy thử lại sau.", "Lỗi hệ thống");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Harmic.Models;
 
+[Table("tb_ProductReview")]   // ⭐ THÊM DÒNG NÀY
 public partial class TbProductReview
 {
     [Key]

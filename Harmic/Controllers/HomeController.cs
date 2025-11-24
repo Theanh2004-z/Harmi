@@ -1,4 +1,6 @@
 using System.Diagnostics;
+
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Harmic.Models;
@@ -18,10 +20,13 @@ namespace Harmic.Controllers
 
         public IActionResult Index()
         {
+         
             ViewBag.productCategories = _context.TbProductCategories.ToList();
             ViewBag.productNew = _context.TbProducts.Where(m => m.IsNew).ToList();
             return View();
         }
+
+        
 
         public IActionResult Privacy()
         {

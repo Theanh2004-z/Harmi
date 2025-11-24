@@ -75,7 +75,8 @@
                                             <td>@Html.DisplayFor(modelItem => item.Title)</td>
                                             <td>@Html.DisplayFor(modelItem => item.CategoryProduct.Title)</td>
                                             <td>
-                                                <img src="@Url.Content(item.Image)" width="50" height="50" />
+                                                <img src="@Url.Content("~/" + item.Image)" width="50" height="50" alt="@item.Title" />
+
 
                                             </td>
                                             <td>@Html.DisplayFor(modelItem => item.Price)</td>

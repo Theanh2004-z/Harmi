@@ -27,6 +27,8 @@
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="~/assets/css/style.css">
+    <link href="~/assets/toastr/toastr.css" rel="stylesheet" />
+
 
 </head>
 
@@ -81,7 +83,8 @@
                     <div class="row align-items-center">
                         <div class="col-lg-12">
                             <div class="header-middle-wrap">
-                                <a href="index.html" class="header-logo">
+                                <a href="@Url.Action("Index", "Home")" class="header-logo">
+
                                     <img src="~/assets/images/logo/dark.png" alt="Header Logo">
                                 </a>
                                 <div class="header-search-area d-none d-lg-block">
@@ -212,7 +215,8 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="index.html">
+                                                <a href="@Url.Action("Index", "Home")">
+
                                                     <span class="mm-text">Home One</span>
                                                 </a>
                                             </li>
@@ -543,7 +547,8 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="widget-item">
                                 <div class="footer-logo pb-4">
-                                    <a href="index.html">
+                                    <a href="@Url.Action("Index", "Home")">
+
                                         <img src="~/assets/images/logo/dark.png" alt="Logo">
                                     </a>
                                 </div>
@@ -676,6 +681,12 @@
 
     <!--Main JS (Common Activation Codes)-->
     <script src="~/assets/js/main.js"></script> 
+    <script src="~/assets/js/untils.js"></script>
+    <script src="~/assets/toastr/toastr.min.js"></script>
+
+    @*@await Component.InvokeAsync("Notyf")*@
+
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

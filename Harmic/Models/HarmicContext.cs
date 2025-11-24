@@ -19,6 +19,8 @@ namespace Harmic.Models
         public virtual DbSet<TbBlog> TbBlogs { get; set; }
         public virtual DbSet<TbBlogComment> TbBlogComments { get; set; }
         public virtual DbSet<TbCategory> TbCategories { get; set; }
+        public virtual DbSet<TbContact> TbContacts { get; set; }
+
         public virtual DbSet<TbCustomer> TbCustomers { get; set; }
         public virtual DbSet<TbMenu> TbMenus { get; set; }
         public virtual DbSet<TbNews> TbNews { get; set; }
@@ -28,6 +30,7 @@ namespace Harmic.Models
         public virtual DbSet<TbProduct> TbProducts { get; set; }
         public virtual DbSet<TbProductCategory> TbProductCategories { get; set; }
         public virtual DbSet<TbProductReview> TbProductReviews { get; set; }
+
         public virtual DbSet<TbRole> TbRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

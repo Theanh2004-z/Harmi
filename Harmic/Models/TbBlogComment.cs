@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations; // ✅ thêm dòng này
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;  // ⭐ BẮT BUỘC
 
 namespace Harmic.Models
 {
+    [Table("tb_BlogComment")]   // ⭐ MAP ĐÚNG TÊN BẢNG TRONG SQL
     public partial class TbBlogComment
     {
-        [Key] // ✅ thêm dòng này
+        [Key]
         public int CommentId { get; set; }
 
         public string? Name { get; set; }
@@ -26,3 +28,4 @@ namespace Harmic.Models
         public virtual TbBlog? Blog { get; set; }
     }
 }
+
