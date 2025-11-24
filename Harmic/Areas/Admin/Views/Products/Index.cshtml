@@ -75,7 +75,11 @@
                                             <td>@Html.DisplayFor(modelItem => item.Title)</td>
                                             <td>@Html.DisplayFor(modelItem => item.CategoryProduct.Title)</td>
                                             <td>
-                                                <img src="@Url.Content("~/" + item.Image)" width="50" height="50" alt="@item.Title" />
+                                                <img src="@Url.Content("~/" + (item.Image ?? "assets/images/product/default.jpg").TrimStart('/'))"
+                                                     width="50" height="50" alt="@item.Title" />
+
+
+
 
 
                                             </td>
